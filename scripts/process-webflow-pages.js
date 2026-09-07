@@ -78,12 +78,10 @@ function extract(html) {
 const files = fs.readdirSync(dir).filter((f) => f.endsWith(".html"));
 const manifest = {};
 
-for (const file of files) {
-  const raw = fs.readFileSync(path.join(dir, file), "utf8");
+function writePage(key, raw, targetFile) {
   const titleMatch = raw.match(/<title>([^<]*)<\/title>/i);
   const descMatch = raw.match(/name="description" content="([^"]*)"/i);
   const { body, styles } = extract(raw);
-  const key = file.replace(/\.html$/, "");
   const payload = {
     key,
     title: titleMatch ? titleMatch[1] : key,
@@ -91,7 +89,7 @@ for (const file of files) {
     styles,
     body,
   };
-  fs.writeFileSync(path.join(outDir, `${key}.json`), JSON.stringify(payload));
+  fs.writeFileSync(targetFile, JSON.stringify(payload));
   manifest[key] = {
     title: payload.title,
     description: payload.description,
@@ -99,6 +97,28 @@ for (const file of files) {
     styleBlocks: styles.length,
   };
   console.log("wrote", key, manifest[key].bytes);
+}
+
+for (const file of files) {
+  const raw = fs.readFileSync(path.join(dir, file), "utf8");
+  const key = file.replace(/\.html$/, "");
+  writePage(key, raw, path.join(outDir, `${key}.json`));
+}
+
+const insightsDir = path.join(dir, "insights");
+if (fs.existsSync(insightsDir)) {
+  const insightFiles = fs
+    .readdirSync(insightsDir)
+    .filter((f) => f.endsWith(".html"));
+  for (const file of insightFiles) {
+    const raw = fs.readFileSync(path.join(insightsDir, file), "utf8");
+    const key = file.replace(/\.html$/, "");
+    writePage(
+      `insights/${key}`,
+      raw,
+      path.join(outDir, "insights", `${key}.json`)
+    );
+  }
 }
 
 fs.writeFileSync(
