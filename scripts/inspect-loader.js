@@ -1,0 +1,12 @@
+const fs = require("fs");
+const home = JSON.parse(fs.readFileSync("src/content/pages/home.json", "utf8"));
+console.log("has loader class", /class="loader"/.test(home.body));
+console.log("has loader-home", home.body.includes("loader-home"));
+console.log("has data-init-hidden", (home.body.match(/data-init-hidden/g) || []).length);
+console.log("has data-barba", home.body.includes("data-barba"));
+const i = home.body.indexOf('class="loader"');
+console.log("loader snippet:\n", home.body.slice(Math.max(0, i - 50), i + 400));
+const main = fs.readFileSync("public/js/main.js", "utf8");
+console.log("\nmain has localhost", main.includes('"localhost"'));
+console.log("main isLoaded", main.includes("isLoaded"));
+console.log("main Unauthorized", main.includes("Unauthorized domain"));

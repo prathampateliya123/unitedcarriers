@@ -1,3 +1,5 @@
+import BackToTop from "@/components/BackToTop";
+import SmoothScroll from "@/components/SmoothScroll";
 import "./globals.css";
 
 export const metadata = {
@@ -23,7 +25,11 @@ export default function RootLayout({ children }) {
           href="/images/6a631242ed3423f9f458466a_Favicon (1).png"
         />
       </head>
-      <body>{children}</body>
+      <body>
+        <SmoothScroll />
+        {children}
+        <BackToTop />
+      </body>
     </html>
   );
 }

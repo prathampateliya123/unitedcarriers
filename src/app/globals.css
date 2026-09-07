@@ -1,6 +1,6 @@
 @import "tailwindcss";
 
-/* Shell only — visuals/animations come from Webflow CSS + main.js runtime */
+/* Shell + loader-critical styles for original Webflow loader clone */
 
 html,
 body {
@@ -9,6 +9,90 @@ body {
   min-height: 100%;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+html.uc-smooth-scroll {
+  scroll-behavior: auto;
+}
+
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
 .uc-webflow-mirror {
   min-height: 100vh;
+}
+
+/* Full-page loader must paint above everything while booting */
+.loader {
+  position: fixed !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  z-index: 99999 !important;
+}
+
+html.uc-booting,
+html.uc-booting body {
+  overflow: hidden;
+}
+
+html:not(.uc-loader-done) .uc-back-to-top {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+.uc-back-to-top {
+  position: fixed;
+  right: 1.25rem;
+  bottom: 1.25rem;
+  z-index: 9999;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  border: 0;
+  border-radius: 999px;
+  background: #0016cb;
+  color: #fff;
+  cursor: pointer;
+  box-shadow: 0 10px 30px rgba(0, 22, 203, 0.28);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(12px);
+  transition:
+    opacity 0.3s ease,
+    transform 0.3s ease,
+    visibility 0.3s ease,
+    background 0.2s ease;
+}
+
+.uc-back-to-top.is-visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.uc-back-to-top:hover {
+  background: #0011a8;
+}
+
+@media (max-width: 767px) {
+  .uc-back-to-top {
+    right: 1rem;
+    bottom: 1rem;
+    width: 2.75rem;
+    height: 2.75rem;
+  }
 }
