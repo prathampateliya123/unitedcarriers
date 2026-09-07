@@ -1,0 +1,92 @@
+{
+  "about": {
+    "title": "About us",
+    "description": "",
+    "bytes": 535728,
+    "styleBlocks": 16
+  },
+  "careers": {
+    "title": "Careers",
+    "description": "",
+    "bytes": 485915,
+    "styleBlocks": 16
+  },
+  "community": {
+    "title": "Community",
+    "description": "",
+    "bytes": 239370,
+    "styleBlocks": 16
+  },
+  "contact": {
+    "title": "Contact",
+    "description": "",
+    "bytes": 148572,
+    "styleBlocks": 13
+  },
+  "delivery-shipping-policy": {
+    "title": "Delivery &amp; Shipping Policy",
+    "description": "",
+    "bytes": 192911,
+    "styleBlocks": 15
+  },
+  "home": {
+    "title": "United Carriers | Global Freight Forwarding and Logistics",
+    "description": "",
+    "bytes": 346815,
+    "styleBlocks": 16
+  },
+  "industries": {
+    "title": "Industries",
+    "description": "",
+    "bytes": 243699,
+    "styleBlocks": 15
+  },
+  "insights": {
+    "title": "Insights",
+    "description": "",
+    "bytes": 265538,
+    "styleBlocks": 16
+  },
+  "merchandises": {
+    "title": "Merchandises",
+    "description": "",
+    "bytes": 313102,
+    "styleBlocks": 16
+  },
+  "payment-policy": {
+    "title": "Payment Policy",
+    "description": "",
+    "bytes": 193502,
+    "styleBlocks": 15
+  },
+  "privacy-policy": {
+    "title": "Privacy Policy",
+    "description": "",
+    "bytes": 194626,
+    "styleBlocks": 15
+  },
+  "qhse": {
+    "title": "QHSE",
+    "description": "",
+    "bytes": 193569,
+    "styleBlocks": 15
+  },
+  "refund-returns-policy": {
+    "title": "Refund &amp; Returns Policy",
+    "description": "",
+    "bytes": 193163,
+    "styleBlocks": 15
+  },
+  "services": {
+    "title": "Services",
+    "description": "",
+    "bytes": 515113,
+    "styleBlocks": 16
+  },
+  "terms-conditions": {
+    "title": "Terms &amp; Conditions",
+    "description": "",
+    "bytes": 249854,
+    "styleBlocks": 15
+  }
+}
