@@ -1,3 +1,4 @@
+import CloneEnhancer from "@/components/CloneEnhancer";
 import { getPage } from "@/lib/getPage";
 import "./globals.css";
 
@@ -24,7 +25,10 @@ export default function RootLayout({ children }) {
           href="/images/6a631242ed3423f9f458466a_Favicon (1).png"
         />
       </head>
-      <body>{children}</body>
+      <body>
+        <CloneEnhancer />
+        {children}
+      </body>
     </html>
   );
 }

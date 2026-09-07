@@ -24,3 +24,17 @@ body {
 .trans {
   display: none !important;
 }
+
+.menu-open .header-menu,
+.menu-open .w-nav-menu,
+.menu-open .nav-menu,
+.menu-open .menu-wrap,
+.header-menu.is-open,
+.w-nav-menu.is-open,
+.nav-menu.is-open,
+.menu-wrap.is-open {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  pointer-events: auto !important;
+}
