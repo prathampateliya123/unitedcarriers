@@ -1,40 +1,14 @@
 @import "tailwindcss";
 
-/* Minimal shell — page visuals come from Webflow CSS + mirrored markup */
-
-:root {
-  --background: #ffffff;
-  --foreground: #111111;
-}
+/* Shell only — visuals/animations come from Webflow CSS + main.js runtime */
 
 html,
 body {
   margin: 0;
   padding: 0;
   min-height: 100%;
-  background: #fff;
-  color: #111;
 }
 
 .uc-webflow-mirror {
   min-height: 100vh;
-}
-
-.loader,
-.trans {
-  display: none !important;
-}
-
-.menu-open .header-menu,
-.menu-open .w-nav-menu,
-.menu-open .nav-menu,
-.menu-open .menu-wrap,
-.header-menu.is-open,
-.w-nav-menu.is-open,
-.nav-menu.is-open,
-.menu-wrap.is-open {
-  display: block !important;
-  visibility: visible !important;
-  opacity: 1 !important;
-  pointer-events: auto !important;
 }

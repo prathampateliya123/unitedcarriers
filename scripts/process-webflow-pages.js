@@ -6,68 +6,35 @@ const outDir = "src/content/pages";
 fs.mkdirSync(outDir, { recursive: true });
 fs.mkdirSync(path.join(outDir, "insights"), { recursive: true });
 
-const SITE_CDN = "https://cdn.prod.website-files.com/6a44eec1ed1af2c4c403df6b/";
 const CDN_CSS =
   "https://cdn.prod.website-files.com/6a44eec1ed1af2c4c403df6b/css/united-carriers.webflow.shared.fc188c3b2.min.css";
 
 function rewrite(html) {
-  let h = html.split(CDN_CSS).join("/css/united-carriers.webflow.shared.fc188c3b2.min.css");
+  let h = html
+    .split(CDN_CSS)
+    .join("/css/united-carriers.webflow.shared.fc188c3b2.min.css");
 
-  // Prefer local images when referenced relatively as images/...
   h = h.replace(/(src|srcset)=["']images\//g, '$1="/images/');
   h = h.replace(/url\(images\//g, "url(/images/");
-
-  // Keep CDN asset URLs intact for pixel-faithful media (matches live site).
-  // Only rewrite CSS to local copy above.
-
   return h;
 }
 
 function extract(html) {
   const bodyMatch = html.match(/<body[^>]*>([\s\S]*)<\/body>/i);
   let body = bodyMatch ? bodyMatch[1] : html;
-  body = body.replace(/<script[\s\S]*?<\/script>/gi, "");
 
-  // Without Webflow/custom JS, reveal content that starts hidden
-  body = body.replace(/\sdata-init-hidden(="[^"]*")?/g, "");
-  body = body.replace(/\sdata-init-loader(="[^"]*")?/g, "");
-  body = body.replace(
-    /<div class="loader"[\s\S]*?<\/div>\s*(?=<div class="trans"|<div class="body-inner"|<div data-barba)/i,
-    ""
-  );
-  // Fallback: hide any remaining loader
-  body = body.replace(
-    /class="loader"/g,
-    'class="loader" style="display:none!important;pointer-events:none!important;opacity:0!important"'
-  );
-  body = body.replace(
-    /class="trans"/g,
-    'class="trans" style="display:none!important;pointer-events:none!important"'
-  );
+  // Remove original scripts — Next loads patched local animation runtime
+  body = body.replace(/<script[\s\S]*?<\/script>/gi, "");
 
   const styles = [];
   const styleRe = /<style[^>]*>([\s\S]*?)<\/style>/gi;
   let sm;
   while ((sm = styleRe.exec(html))) {
-    let css = sm[1];
-    css = css.replace(
-      /\[data-init-hidden\][\s\S]*?\{[\s\S]*?\}/g,
-      ""
-    );
-    css = css.replace(
-      /\[data-init-loader\][\s\S]*?\{[\s\S]*?\}/g,
-      ""
-    );
-    styles.push(css);
+    styles.push(sm[1]);
   }
 
-  // Clone overrides appended to every page
-  styles.push(`
-    .loader, .trans { display: none !important; }
-    [data-init-hidden], [data-init-loader] { opacity: 1 !important; visibility: visible !important; }
-    .article-layout[data-init-hidden] { display: block !important; }
-    html { opacity: 1 !important; }
-  `);
+  // Keep data-init-hidden / loader so GSAP can animate them.
+  // Failsafe only: if runtime fails, unhide after 8s via CloneEnhancer.
 
   return {
     body: rewrite(body),

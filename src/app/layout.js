@@ -1,5 +1,3 @@
-import CloneEnhancer from "@/components/CloneEnhancer";
-import { getPage } from "@/lib/getPage";
 import "./globals.css";
 
 export const metadata = {
@@ -14,7 +12,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
+    <html lang="en" className="w-mod-js">
       <head>
         <link
           rel="stylesheet"
@@ -25,10 +23,7 @@ export default function RootLayout({ children }) {
           href="/images/6a631242ed3423f9f458466a_Favicon (1).png"
         />
       </head>
-      <body>
-        <CloneEnhancer />
-        {children}
-      </body>
+      <body>{children}</body>
     </html>
   );
 }
